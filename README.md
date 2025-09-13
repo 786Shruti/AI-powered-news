@@ -39,14 +39,14 @@ Built with **MongoDB, Express, React, Node.js**, and deployed on **Render**.
 - project-root/
 - │── server.js             # Backend entry
 - │── package.json          # Backend package.json
--│── /config               # DB connection
--│── /routes               # API routes
--│── /models               # MongoDB models
--│── /client               # React frontend
--│    ├── package.json     # Frontend package.json
--│    ├── src/             # React components
--│    └── public/
--│── .env.example          # Example environment variables
+- │── /config               # DB connection
+- │── /routes               # API routes
+- │── /models               # MongoDB models
+- │── /client               # React frontend
+- │    ├── package.json     # Frontend package.json
+- │    ├── src/             # React components
+- │    └── public/
+- │── .env.example          # Example environment variables
 
 ##⚡ Getting Started (Local Setup)
 -1️⃣ Clone the repo
