@@ -75,8 +75,8 @@ const fetchNews = async (currentsUrl, newsApiUrl, fallbackNews) => {
 
 // India news (exclude Maharashtra/Pune)
 const getIndiaNews = async (req, res) => {
-  const currentsUrl = `https://api.currentsapi.services/v1/latest-news?country=in&language=en&apiKey=${CURRENTS_API_KEY}`;
-  const newsApiUrl = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${NEWSAPI_KEY}`;
+    const currentsUrl = `https://api.currentsapi.services/v1/search?keywords=india&language=en&apiKey=${CURRENTS_API_KEY}`;
+  const newsApiUrl = `https://newsapi.org/v2/everything?q=india&apiKey=${NEWSAPI_KEY}`;
   const fallback = [{
     title: "Sample India News",
     description: "This is sample India news due to API limit.",
