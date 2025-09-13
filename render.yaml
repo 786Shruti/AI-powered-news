@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: news-backend
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node server.js"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Add your MongoDB Atlas connection string here later
+      - key: MONGO_URI
+        sync: false
