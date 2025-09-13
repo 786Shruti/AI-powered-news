@@ -1,19 +1,21 @@
 import axios from "axios";
 
 function NewsCard({ news }) {
+  // Backend base URL
   const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
   const handleSave = async () => {
     try {
       await axios.post(`${API_BASE}/api/news`, {
         title: news.title,
-        content: news.content || news.description || news.summary || "No content",
+        content:
+          news.content || news.description || news.summary || "No content",
         summary: news.summary,
         sentiment: news.sentiment,
         source: news.source?.name || news.source,
         url: news.url,
         image: news.image || news.urlToImage,
-        date: news.date || news.publishedAt
+        date: news.date || news.publishedAt,
       });
       alert("News saved successfully!");
     } catch (err) {
