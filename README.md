@@ -36,9 +36,9 @@ Built with **MongoDB, Express, React, Node.js**, and deployed on **Render**.
 ---
 
 ## 📂 Project Structure
--project-root/
--│── server.js             # Backend entry
--│── package.json          # Backend package.json
+- project-root/
+- │── server.js             # Backend entry
+- │── package.json          # Backend package.json
 -│── /config               # DB connection
 -│── /routes               # API routes
 -│── /models               # MongoDB models
