@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const newsRoutes = require("./routes/newsRoutes");
 const cors = require("cors");
+const path = require("path");
 
 dotenv.config();
 
@@ -20,8 +21,17 @@ app.use(express.json());
 // API Routes
 app.use("/api/news", newsRoutes);
 
+// Serve React frontend in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client", "build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
 // Health check route (useful for Render)
-app.get("/", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.send("✅ API is running on Render...");
 });
 
