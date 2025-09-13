@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import NewsCard from "../components/NewsCard";
-import SentimentTrendChart from "../components/SentimentTrendChart"; // Chart.js component
+import SentimentTrendChart from "../components/SentimentTrendChart";
 
 // Tabs for filtering news
 const tabs = [
@@ -12,57 +12,51 @@ const tabs = [
 ];
 
 function Home() {
-  // State for active tab in news
   const [activeTab, setActiveTab] = useState("db");
-  // State for fetched news
   const [news, setNews] = useState([]);
-  // State for search input
   const [search, setSearch] = useState("");
-  // State to toggle view: news first, dashboard second
-  const [view, setView] = useState("news"); // default "news"
+  const [view, setView] = useState("news");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch news when activeTab or view changes
+  // Backend base URL from environment variable
+  const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+  const tabUrls = {
+    db: "/api/news/",
+    india: "/api/news/india-news",
+    maharashtra: "/api/news/maharashtra-news",
+    pune: "/api/news/pune-news",
+  };
+
   useEffect(() => {
     if (view === "news") {
       const fetchNews = async () => {
-        let url = "";
-        switch (activeTab) {
-          case "db":
-            url = "http://localhost:5000/api/news/";
-            break;
-          case "india":
-            url = "http://localhost:5000/api/news/india-news";
-            break;
-          case "maharashtra":
-            url = "http://localhost:5000/api/news/maharashtra-news";
-            break;
-          case "pune":
-            url = "http://localhost:5000/api/news/pune-news";
-            break;
-          default:
-            url = "http://localhost:5000/api/news/";
-        }
-
+        setLoading(true);
         try {
+          const url = `${API_BASE}${tabUrls[activeTab] || tabUrls["db"]}`;
           const res = await axios.get(url);
           setNews(res.data);
+          setError(null);
         } catch (err) {
           console.error("Error fetching news:", err);
+          setError("Failed to fetch news. Please try again later.");
+        } finally {
+          setLoading(false);
         }
       };
 
       fetchNews();
     }
-  }, [activeTab, view]);
+  }, [activeTab, view, API_BASE]);
 
-  // Filter news based on search
   const filteredNews = news.filter((item) =>
     (item.title || "").toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <>
-      {/* ================= Hero Section ================= */}
+      {/* Hero Section */}
       <div className="bg-gradient-to-r from-indigo-800 to-blue-600 text-white py-24 px-6 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           AI-Powered <span className="text-yellow-400">News Summarizer</span>
@@ -72,7 +66,7 @@ function Home() {
         </p>
       </div>
 
-      {/* ================= View Toggle Buttons ================= */}
+      {/* View Toggle Buttons */}
       <div className="flex justify-center my-6 space-x-4">
         <button
           onClick={() => setView("news")}
@@ -96,7 +90,7 @@ function Home() {
         </button>
       </div>
 
-      {/* ================= Conditional Rendering ================= */}
+      {/* Conditional Rendering */}
       {view === "news" && (
         <div className="container mx-auto px-6 py-12">
           {/* Tabs */}
@@ -127,26 +121,26 @@ function Home() {
             />
           </div>
 
+          {/* Error or Loading */}
+          {loading && <p className="text-center text-gray-500">Loading news...</p>}
+          {error && <p className="text-center text-red-500">{error}</p>}
+
           {/* News Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredNews.length === 0 ? (
-              <p className="text-center text-gray-500 col-span-full">
-                No news found.
-              </p>
-            ) : (
+            {!loading && !error && filteredNews.length === 0 && (
+              <p className="text-center text-gray-500 col-span-full">No news found.</p>
+            )}
+            {!loading && !error &&
               filteredNews.map((item, index) => (
                 <NewsCard key={item._id || index} news={item} />
-              ))
-            )}
+              ))}
           </div>
         </div>
       )}
 
       {view === "dashboard" && (
         <div className="container mx-auto px-6 py-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">
-            Sentiment Analytics
-          </h2>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Sentiment Analytics</h2>
           <SentimentTrendChart />
         </div>
       )}
