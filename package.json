@@ -4,10 +4,10 @@
   "description": "MERN News App Backend",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
-  },
+  "start": "node server.js",
+  "dev": "nodemon server.js",
+  "build": "npm install --prefix client && npm run build --prefix client"
+},
   "keywords": ["mern", "news", "backend"],
   "author": "Shruti Pol",
   "license": "ISC",
