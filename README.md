@@ -1,5 +1,5 @@
 # AI-Powered News Summarizer
-# 📰 MERN News App
+## 📰 MERN News App
 
 A **Full-Stack MERN Project** that fetches real-time news, summarizes articles, and performs sentiment analysis.  
 Built with **MongoDB, Express, React, Node.js**, and deployed on **Render**.
@@ -37,16 +37,16 @@ Built with **MongoDB, Express, React, Node.js**, and deployed on **Render**.
 
 ## 📂 Project Structure
 -project-root/
-│── server.js             # Backend entry
-│── package.json          # Backend package.json
-│── /config               # DB connection
-│── /routes               # API routes
-│── /models               # MongoDB models
-│── /client               # React frontend
-│    ├── package.json     # Frontend package.json
-│    ├── src/             # React components
-│    └── public/
-│── .env.example          # Example environment variables
+-│── server.js             # Backend entry
+-│── package.json          # Backend package.json
+-│── /config               # DB connection
+-│── /routes               # API routes
+-│── /models               # MongoDB models
+-│── /client               # React frontend
+-│    ├── package.json     # Frontend package.json
+-│    ├── src/             # React components
+-│    └── public/
+-│── .env.example          # Example environment variables
 
 ##⚡ Getting Started (Local Setup)
 -1️⃣ Clone the repo
