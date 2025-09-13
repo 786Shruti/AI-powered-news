@@ -1,9 +1,11 @@
 import axios from "axios";
 
 function NewsCard({ news }) {
+  const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const handleSave = async () => {
     try {
-      await axios.post("http://localhost:5000/api/news", {
+      await axios.post(`${API_BASE}/api/news`, {
         title: news.title,
         content: news.content || news.description || news.summary || "No content",
         summary: news.summary,
