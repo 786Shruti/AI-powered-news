@@ -32,7 +32,7 @@ function SentimentTrendChart() {
   useEffect(() => {
     const fetchSentimentData = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/news"); // saved news
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/news`); // saved news
         const news = res.data;
 
         if (!news || news.length === 0) {
